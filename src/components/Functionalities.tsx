@@ -8,7 +8,7 @@ interface FunctionalitiesProps {
 const Functionalities: FunctionComponent<FunctionalitiesProps> = ({ onClickHandler, text }) => {
   const [data, setData] = useState();
 
-  const onChangleHandler = (event: any) => {
+  const onChangeHandler = (event: any) => {
     setData(event.target.value);
   }
 
@@ -17,7 +17,7 @@ const Functionalities: FunctionComponent<FunctionalitiesProps> = ({ onClickHandl
       <input
         type="text"
         placeholder={text}
-        onChange={onChangleHandler}
+        onChange={onChangeHandler}
         required
       />
       <button

@@ -8,7 +8,7 @@ import Functionalities from './components/Functionalities';
 const App: FunctionComponent = () => {
   const [list, setList] = useState(new LinkedList());
 
-  const addNodeToEnd = (data: any) => {
+  const addNodeToEnd = (data: string | number) => {
     let newList = { ...list };
     let newNode = new Node(data);
 
@@ -26,6 +26,23 @@ const App: FunctionComponent = () => {
     setList(newList);
   }
 
+  const addNodeToStart = (data: string | number) => {
+    let newList = { ...list };
+    let newNode = new Node(data);
+    newNode.next = newList.head;
+
+    if (!newList.head) {
+      newList.tail = newNode;
+    } else {
+      newList.head.prev = newNode;
+    }
+
+    newNode.prev = null;
+    newList.head = newNode;
+
+    setList(newList)
+  }
+
   return (
     <div>
       {
@@ -34,6 +51,10 @@ const App: FunctionComponent = () => {
       }
       <Functionalities
         onClickHandler={addNodeToEnd}
+        text='Add Node To End'
+      />
+      <Functionalities
+        onClickHandler={addNodeToStart}
         text='Add Node To Start'
       />
     </div>
