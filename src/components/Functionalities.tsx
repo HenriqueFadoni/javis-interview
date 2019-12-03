@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 
 interface FunctionalitiesProps {
-  onClickHandler: (data: string | number) => void,
+  onClickHandler: (data: string) => void,
   text: string
 }
 
