@@ -1,15 +1,21 @@
 import React, { FunctionComponent, useState } from 'react';
 
 interface FunctionalitiesProps {
-  onClickHandler: (data: string) => void,
+  functionality: (data: string) => void,
   text: string
 }
 
-const Functionalities: FunctionComponent<FunctionalitiesProps> = ({ onClickHandler, text }) => {
+const Functionalities: FunctionComponent<FunctionalitiesProps> = ({ functionality, text }) => {
   const [data, setData] = useState();
 
   const onChangeHandler = (event: any) => {
     setData(event.target.value);
+  }
+
+  const onClickHandler = () => {
+    if (data && data.trim()  !== '') {
+      functionality(data)
+    }
   }
 
   return (
@@ -20,9 +26,7 @@ const Functionalities: FunctionComponent<FunctionalitiesProps> = ({ onClickHandl
         onChange={onChangeHandler}
         required
       />
-      <button
-        onClick={() => onClickHandler(data)}
-      >
+      <button onClick={onClickHandler} >
         {text}
       </button>
     </div>

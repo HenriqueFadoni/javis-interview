@@ -1,14 +1,16 @@
-import React, { FunctionComponent, useState, useEffect } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 
 import { LinkedList, Node } from './text';
 
 import DisplayNode from './components/DisplayNode';
 import Functionalities from './components/Functionalities';
 import SearchNode from './components/SearchNode';
+import GetNode from './components/GetNode';
 
 const App: FunctionComponent = () => {
-  const [searchResponse, setSearchResponse] = useState(false);
   const [list, setList] = useState(new LinkedList());
+  const [searchResponse, setSearchResponse] = useState(false);
+  const [showNode, setShowNode] = useState();
 
   const addNodeToEnd = (data: string) => {
     let newList = { ...list };
@@ -62,6 +64,25 @@ const App: FunctionComponent = () => {
     setSearchResponse(answer);
   }
 
+  const getNode = (search: string) => {
+    let listHead = { ...list.head };
+    let answer = null;
+
+    while (!answer) {
+      if (listHead.data === search) {
+        answer = listHead;
+      } else if (listHead.next) {
+        listHead = listHead.next;
+      } else {
+        answer = {
+          data: 'Node doesn\'t exist!'
+        };
+      }
+    }
+
+    setShowNode(answer);
+  }
+
   return (
     <div>
       {
@@ -69,16 +90,20 @@ const App: FunctionComponent = () => {
         <DisplayNode list={list} />
       }
       <Functionalities
-        onClickHandler={addNodeToEnd}
+        functionality={addNodeToEnd}
         text='Add Node To End'
       />
       <Functionalities
-        onClickHandler={addNodeToStart}
+        functionality={addNodeToStart}
         text='Add Node To Start'
       />
       <SearchNode
         response={searchResponse}
         searchItem={checkNodeExists}
+      />
+      <GetNode 
+        getNode={getNode}
+        showNode={showNode}
       />
     </div>
   );

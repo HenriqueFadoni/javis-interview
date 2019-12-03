@@ -3,19 +3,7 @@
 // sinon-chai moment connect validator restify ejs ws co when
 // helmet wrench brain mustache should backbone forever debug jsdom
 
-/* 
-(V) class LinkedList<T>:
-(V) pushBack(data: T): void; // inserts a new element at the back (end) of the list
-(V) pushFront(data: T): void; // inserts a new element at the front (start) of the list
-(V) exists(data: T): boolean; // checks if an element is part of the list
-( ) get(data: T): (Node<T> | null); // returns a node containing data, or null of such doesn't exist
-insertAfter(node: Node < T >, data: T) : void // inserts a new node containing data after the given node
-insertBefore(node: Node < T >, data: T) : void // inserts a new node containing data before the given node
-reverse(): void // reverses the linked list in-place
-reversed(): List < T > // returns a new copy of the current list, copied in reverse. The current list is unmodified.
-toArray(): T[]
-*/
-
+// (V) class LinkedList<T>:
 export class LinkedList {
   constructor() {
     this.head = null;
@@ -31,6 +19,7 @@ export class Node {
   }
 }
 
+// (V) pushBack(data: T): void; // inserts a new element at the back (end) of the list
 const addNodeToEnd = (data, list) => {
   let newNode = new Node(data);
   newNode.prev = list.tail;
@@ -45,6 +34,7 @@ const addNodeToEnd = (data, list) => {
   newNode.next = null;
 }
 
+// (V) pushFront(data: T): void; // inserts a new element at the front (start) of the list
 const addNodeToStart = (data, list) => {
   let newNode = new Node(data);
   newNode.next = list.head;
@@ -59,6 +49,7 @@ const addNodeToStart = (data, list) => {
   newNode.prev = null;
 }
 
+// (V) exists(data: T): boolean; // checks if an element is part of the list
 const checkExists = (search, list) => {
   let element = list.head;
   let answer = null;
@@ -76,80 +67,73 @@ const checkExists = (search, list) => {
   return answer
 }
 
-// funciton linkedListExample() {
-//   const list = { head: null, tail: null };
-//   const node1 = new Node('1');
-//   list.head = node1;
-//   list.tail = node1;
+// (V) get(data: T): (Node<T> | null); --- returns a node containing data, or null of such doesn't exist
+const getNode = (search, list) => {
+  let element = list.head;
+  let answer = null;
 
-//   const node2 = new Node('2');
-//   node1.next = node2;
-//   node2.prev = node1;
-//   list.tail = node2;
+  while (!answer) {
+    if (element.data === search) {
+      answer = element;
+    } else if (element.next) {
+      element = element.next;
+    } else {
+      answer = 'Doesn\'t exist';
+    }
+  }
 
-//   const addNode = (data) {
-//     const newNode = new Node(data);
-//     newNode.prev = list.tail;
-//     newNode.next = null;
-//     list.tail.next = newNode;
-//     list.tail = newNode;
-//   }
+  return answer
+}
 
-//   function toArray() {
-//     return [node1.data, node2.data];
-//   }
+// (V) insertAfter(node: Node < T >, data: T) : void // inserts a new node containing data after the given node
+const insertAfter = (node, data, list) => {
+  let element = list.head;
+  let searchNode = null;
 
-//   const list = new LinkedList();
+  while (!searchNode) {
+    if (element.data === data) {
+      searchNode = element;
+    } else if (element.next) {
+      element = element.next;
+    } else {
+      searchNode = false;
+    }
+  }
 
-//   list.pushBack(1);
-//   const snapshot1 = list.toArray();
-//   console.log(snapshot1); // [1]
+  if (searchNode) {
+    const newNode = node
+    newNode.next = searchNode.next
+    newNode.prev = searchNode.next.prev
 
-//   list.pushFront(0);
-//   const snapshot2 = list.toArray();
-//   console.log(snapshot2); // [0, 1]
+    searchNode.next.prev = newNode
+    searchNode.next = newNode
+  } else {
+    return 'Doesnt exist'
+  }
+}
 
-//   list.reverse();
-//   const snapshot3 = list.toArray();
-//   console.log(snapshot3); // [1, 0]
-// }
+/*
+( ) insertBefore(node: Node < T >, data: T) : void // inserts a new node containing data before the given node
+( ) reverse(): void // reverses the linked list in-place
+( ) reversed(): List < T > // returns a new copy of the current list, copied in reverse. The current list is unmodified.
+( ) toArray(): T[]
+*/
 
-// export class LinkedList {
-//   constructor() {
-//     this.head = null;
-//     this.tail = null;
-//   }
-// }
-
-// export class Node {
-//   constructor(data) {
-//     this.data = data;
-//     this.next = null;
-//     this.prev = null;
-//   }
-// }
-
-// const addNodeToEnd = (data, list) => {
-//   let newNode = new Node(data);
-//   newNode.prev = list.tail;
-
-//   if (!list.head) {
-//     list.head = newNode;
-//   }
-
-//   newNode.next = null;
-//   list.tail = newNode;
-//   list.tail.next = newNode;
-// }
-
-// let newList = new LinkedList();
+let newList = new LinkedList();
 // console.log(newList)
 
-// addNodeToEnd(12, newList);
+addNodeToEnd(12, newList);
 // console.log(newList)
 
-// addNodeToEnd(13, newList);
+addNodeToEnd(13, newList);
 // console.log(newList)
 
-// addNodeToEnd(14, newList);
+addNodeToEnd(14, newList);
 // console.log(newList)
+
+// const node = getNode(14, newList);
+// console.log(node)
+
+const node = new Node(3);
+insertAfter(node, 12, newList);
+console.log(newList)

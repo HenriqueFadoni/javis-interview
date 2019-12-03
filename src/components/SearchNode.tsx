@@ -25,7 +25,7 @@ const SearchNode: FunctionComponent<SearchNodeProp> = ({ response, searchItem })
     <div>
       {isSearching && responseDisplay}
       <Functionalities
-        onClickHandler={onClickHandler}
+        functionality={onClickHandler}
         text='Check If An Element Exists'
       />
     </div>
