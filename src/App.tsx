@@ -12,6 +12,7 @@ const App: FunctionComponent = () => {
   const [list, setList] = useState(new LinkedList());
   const [searchResponse, setSearchResponse] = useState(false);
   const [showNode, setShowNode] = useState();
+  const [reverseCopy, setReverseCopy] = useState(new LinkedList());
 
   const addNodeToEnd = (data: string) => {
     let newList = { ...list };
@@ -173,6 +174,35 @@ const App: FunctionComponent = () => {
     setList({ ...list, ...newList })
   }
 
+  const reverseCopyList = () => {
+    let newList = new LinkedList();
+    let element = { ...list.tail }
+    let stop = false
+
+    while (!stop) {
+      const node = new Node(element.data);
+
+      node.prev = newList.tail;
+
+      if (!newList.head) {
+        newList.head = node
+      } else {
+        newList.tail.next = node;
+      }
+
+      node.next = null;
+      newList.tail = node;
+
+      if (element.prev !== null) {
+        element = { ...element.prev }
+      } else {
+        stop = true
+      }
+    }
+
+    setReverseCopy({ ...reverseCopy, ...newList });
+  }
+
   return (
     <div>
       {
@@ -204,6 +234,11 @@ const App: FunctionComponent = () => {
         showNode={showNode}
       />
       <button onClick={reverseList}>Reverse</button>
+      {
+        reverseCopy.head &&
+        <DisplayNode list={reverseCopy} />
+      }
+      <button onClick={reverseCopyList}>Reverse Copy</button>
     </div>
   );
 }
