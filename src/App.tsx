@@ -6,6 +6,7 @@ import DisplayNode from './components/DisplayNode';
 import Functionalities from './components/Functionalities';
 import SearchNode from './components/SearchNode';
 import GetNode from './components/GetNode';
+import InsertBetween from './components/InsertBetween';
 
 const App: FunctionComponent = () => {
   const [list, setList] = useState(new LinkedList());
@@ -83,6 +84,66 @@ const App: FunctionComponent = () => {
     setShowNode(answer);
   }
 
+  const insertAfter = (node: string, data: string) => {
+    const newNode = new Node(node);
+    let element = { ...list.head };
+    let isDone = null;
+
+    while (!isDone) {
+      if (element.data === data && element.next !== null && element.prev !== null) {
+        newNode.next = element.next
+        newNode.prev = element.next.prev
+
+        element.next.prev = newNode;
+        element.next = newNode;
+
+        while (element.prev) {
+          element = element.prev
+        }
+
+        setList({
+          ...list,
+          head: element
+        });
+        isDone = true
+      } else if (element.next) {
+        element = element.next;
+      } else {
+        isDone = true;
+      }
+    }
+  }
+
+  const insertBefore = (node: string, data: string) => {
+    const newNode = new Node(node);
+    let element = { ...list.head };
+    let isDone = null;
+
+    while (!isDone) {
+      if (element.data === data && element.next !== null && element.prev !== null) {
+        newNode.prev = element.prev
+        newNode.next = element
+
+        element.prev.next = newNode;
+        element.prev = newNode
+
+        while (element.prev) {
+          element = element.prev
+        }
+
+        setList({
+          ...list,
+          head: element
+        });
+        isDone = true
+      } else if (element.next) {
+        element = element.next;
+      } else {
+        isDone = true;
+      }
+    }
+  }
+
   return (
     <div>
       {
@@ -97,11 +158,19 @@ const App: FunctionComponent = () => {
         functionality={addNodeToStart}
         text='Add Node To Start'
       />
+      <InsertBetween
+        insertNode={insertAfter}
+        text='Insert After'
+      />
+      <InsertBetween
+        insertNode={insertBefore}
+        text='Insert Before'
+      />
       <SearchNode
         response={searchResponse}
         searchItem={checkNodeExists}
       />
-      <GetNode 
+      <GetNode
         getNode={getNode}
         showNode={showNode}
       />
