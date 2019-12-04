@@ -113,8 +113,8 @@ const insertAfter = (node, data, list) => {
 }
 
 /*
-( ) insertBefore(node: Node < T >, data: T) : void // inserts a new node containing data before the given node
-( ) reverse(): void // reverses the linked list in-place
+(V) insertBefore(node: Node < T >, data: T) : void // inserts a new node containing data before the given node
+(V) reverse(): void // reverses the linked list in-place
 ( ) reversed(): List < T > // returns a new copy of the current list, copied in reverse. The current list is unmodified.
 ( ) toArray(): T[]
 */

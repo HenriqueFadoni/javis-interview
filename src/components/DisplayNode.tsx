@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState, useEffect } from 'react';
 import DisplayNodeBtn from './DisplayNodeBtn';
 
 interface Node {
@@ -16,6 +16,10 @@ interface DisplayNodeProps {
 
 const DisplayNode: FunctionComponent<DisplayNodeProps> = ({ list }) => {
   const [dataDisplay, setDataDisplay] = useState(list.head);
+
+  useEffect(() => {
+    setDataDisplay(list.head);
+  }, [list])
 
   const nextNode = () => {
     const nextData = {

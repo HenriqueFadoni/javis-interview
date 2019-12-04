@@ -144,6 +144,35 @@ const App: FunctionComponent = () => {
     }
   }
 
+  const reverseList = () => {
+    let newList = new LinkedList();
+    let element = { ...list.tail }
+    let stop = false
+
+    while (!stop) {
+      const node = new Node(element.data);
+
+      node.prev = newList.tail;
+
+      if (!newList.head) {
+        newList.head = node
+      } else {
+        newList.tail.next = node;
+      }
+
+      node.next = null;
+      newList.tail = node;
+
+      if (element.prev !== null) {
+        element = { ...element.prev }
+      } else {
+        stop = true
+      }
+    }
+
+    setList({ ...list, ...newList })
+  }
+
   return (
     <div>
       {
@@ -174,6 +203,7 @@ const App: FunctionComponent = () => {
         getNode={getNode}
         showNode={showNode}
       />
+      <button onClick={reverseList}>Reverse</button>
     </div>
   );
 }
