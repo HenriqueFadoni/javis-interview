@@ -2,22 +2,51 @@ import React, { FunctionComponent, useState } from 'react';
 
 import Functionalities from './Functionalities';
 
-interface SearchNodeProp {
-  response: boolean | null,
-  searchItem: (data: string) => void
+interface Node {
+  data: string,
+  next: Node,
+  prev: Node
 }
 
-const SearchNode: FunctionComponent<SearchNodeProp> = ({ response, searchItem }) => {
+interface SearchNodeProp {
+  list: {
+    head: Node
+    tail: Node
+  }
+}
+
+const SearchNode: FunctionComponent<SearchNodeProp> = ({ list }) => {
+  const [searchResponse, setSearchResponse] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
 
   const onClickHandler = (value: string) => {
-    searchItem(value)
+    checkNodeExists(value)
     setIsSearching(true);
+  }
+
+  const checkNodeExists = (search: string) => {
+    let node = { ...list.head };
+    let isDone = false;
+    let answer = false;
+
+    while (!isDone) {
+      if (node.data === search) {
+        answer = true;
+        isDone = true;
+      } else if (node.next) {
+        node = node.next;
+      } else {
+        answer = false;
+        isDone = true;
+      }
+    }
+
+    setSearchResponse(answer);
   }
 
   const responseDisplay = (
     <h3>
-      {response ? 'true' : 'false'}
+      {searchResponse ? 'true' : 'false'}
     </h3>
   )
 

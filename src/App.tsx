@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 
-import { LinkedList, Node } from './text';
+import { LinkedList, Node } from './contructors';
 
 import DisplayNode from './components/DisplayNode';
 import Functionalities from './components/Functionalities';
@@ -10,7 +10,6 @@ import InsertBetween from './components/InsertBetween';
 
 const App: FunctionComponent = () => {
   const [list, setList] = useState(new LinkedList());
-  const [searchResponse, setSearchResponse] = useState(false);
   const [showNode, setShowNode] = useState();
   const [reverseCopy, setReverseCopy] = useState(new LinkedList());
 
@@ -47,23 +46,6 @@ const App: FunctionComponent = () => {
     newList.head = newNode;
 
     setList(newList)
-  }
-
-  const checkNodeExists = (search: string) => {
-    let element = { ...list.head };
-    let answer = null;
-
-    while (answer === null) {
-      if (element.data === search) {
-        answer = true;
-      } else if (element.next) {
-        element = element.next;
-      } else {
-        answer = false;
-      }
-    }
-
-    setSearchResponse(answer);
   }
 
   const getNode = (search: string) => {
@@ -223,10 +205,7 @@ const App: FunctionComponent = () => {
 
   return (
     <div>
-      {
-        list.head &&
-        <DisplayNode list={list} />
-      }
+      {list.head && <DisplayNode list={list} />}
       <Functionalities
         functionality={addNodeToEnd}
         text='Add Node To End'
@@ -243,19 +222,13 @@ const App: FunctionComponent = () => {
         insertNode={insertBefore}
         text='Insert Before'
       />
-      <SearchNode
-        response={searchResponse}
-        searchItem={checkNodeExists}
-      />
+      <SearchNode list={list} />
       <GetNode
         getNode={getNode}
         showNode={showNode}
       />
       <button onClick={reverseList}>Reverse</button>
-      {
-        reverseCopy.head &&
-        <DisplayNode list={reverseCopy} />
-      }
+      {reverseCopy.head && <DisplayNode list={reverseCopy} />}
       <button onClick={reverseCopyList}>Reverse Copy</button>
       <button onClick={toArray}>Transform in Array</button>
     </div>
