@@ -203,6 +203,24 @@ const App: FunctionComponent = () => {
     setReverseCopy({ ...reverseCopy, ...newList });
   }
 
+  const toArray = () => {
+    let listHead = { ...list.head };
+    let isDone = false;
+    const array = [];
+
+    while (!isDone) {
+      array.push(listHead);
+
+      if (listHead.next) {
+        listHead = { ...listHead.next };
+      } else {
+        isDone = true
+      }
+    }
+
+    console.log(array)
+  }
+
   return (
     <div>
       {
@@ -239,6 +257,7 @@ const App: FunctionComponent = () => {
         <DisplayNode list={reverseCopy} />
       }
       <button onClick={reverseCopyList}>Reverse Copy</button>
+      <button onClick={toArray}>Transform in Array</button>
     </div>
   );
 }
