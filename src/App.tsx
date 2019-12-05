@@ -26,9 +26,7 @@ const App: FunctionComponent = () => {
       newList.tail.next = newNode;
     }
 
-    newNode.next = null;
     newList.tail = newNode;
-
     setList(newList);
   }
 
@@ -43,9 +41,7 @@ const App: FunctionComponent = () => {
       newList.head.prev = newNode;
     }
 
-    newNode.prev = null;
     newList.head = newNode;
-
     setList(newList)
   }
 
@@ -54,11 +50,12 @@ const App: FunctionComponent = () => {
     let element = { ...list.head };
     let isDone = null;
 
+    const isInMiddle = element.data === data && element.next !== null && element.prev !== null;
+
     while (!isDone) {
-      if (element.data === data && element.next !== null && element.prev !== null) {
+      if (isInMiddle) {
         newNode.next = element.next
         newNode.prev = element.next.prev
-
         element.next.prev = newNode;
         element.next = newNode;
 
@@ -84,11 +81,12 @@ const App: FunctionComponent = () => {
     let element = { ...list.head };
     let isDone = null;
 
+    const isInMiddle = element.data === data && element.next !== null && element.prev !== null;
+
     while (!isDone) {
-      if (element.data === data && element.next !== null && element.prev !== null) {
+      if (isInMiddle) {
         newNode.prev = element.prev
         newNode.next = element
-
         element.prev.next = newNode;
         element.prev = newNode
 
@@ -116,7 +114,6 @@ const App: FunctionComponent = () => {
 
     while (!stop) {
       const node = new Node(element.data);
-
       node.prev = newList.tail;
 
       if (!newList.head) {
@@ -135,7 +132,10 @@ const App: FunctionComponent = () => {
       }
     }
 
-    setList({ ...list, ...newList })
+    setList({ 
+      ...list, 
+      ...newList 
+    });
   }
 
   return (

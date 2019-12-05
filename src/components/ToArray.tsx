@@ -24,7 +24,7 @@ const ToArray: FunctionComponent<LinkedListType> = ({ list }) => {
 
   return (
     <Button
-      text='Transform in Array'
+      text='Transform in Array (See Console.log)'
       onClickHandler={toArray}
     />
   )
