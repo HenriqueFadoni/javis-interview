@@ -9,6 +9,7 @@ import GetNode from './components/GetNode';
 import InsertBetween from './components/InsertBetween';
 import ToArray from './components/ToArray';
 import ReverseCopyList from './components/ReverseCopyList';
+import Button from './components/Button';
 
 const App: FunctionComponent = () => {
   const [list, setList] = useState(new LinkedList());
@@ -158,7 +159,10 @@ const App: FunctionComponent = () => {
       />
       <SearchNode list={list} />
       <GetNode list={list} />
-      <button onClick={reverseList}>Reverse</button>
+      <Button 
+        text='Reverse'
+        onClickHandler={reverseList}
+      />
       <ReverseCopyList list={list} />
       <ToArray list={list} />
     </div>

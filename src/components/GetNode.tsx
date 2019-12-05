@@ -1,21 +1,9 @@
 import React, { FunctionComponent, useState } from 'react';
 
 import Functionalities from './Functionalities';
+import { LinkedListType } from '../types';
 
-interface Node {
-  data: string,
-  next: Node,
-  prev: Node
-}
-
-interface GetNodeProps {
-  list: {
-    head: Node,
-    tail: Node
-  }
-}
-
-const GetNode: FunctionComponent<GetNodeProps> = ({ list }) => {
+const GetNode: FunctionComponent<LinkedListType> = ({ list }) => {
   const [showNode, setShowNode] = useState();
   let displayNode
 

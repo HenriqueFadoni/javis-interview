@@ -1,10 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 
-interface Node {
-  data: string,
-  next: Node,
-  prev: Node
-}
+import Button from './Button';
 
 interface InsertBetweenProps {
   insertNode: (node: string, data: string) => void,
@@ -15,11 +11,11 @@ const InsertBetween: FunctionComponent<InsertBetweenProps> = ({ insertNode, text
   const [data, setData] = useState();
   const [node, setNode] = useState();
 
-  const onChangeNodeHandler = (event: any) => {
+  const onChangeNodeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNode(event.target.value);
   }
 
-  const onChangeDataHandler = (event: any) => {
+  const onChangeDataHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setData(event.target.value);
   }
 
@@ -43,9 +39,10 @@ const InsertBetween: FunctionComponent<InsertBetweenProps> = ({ insertNode, text
         onChange={onChangeDataHandler}
         required
       />
-      <button onClick={onClickHandler} >
-        {text}
-      </button>
+      <Button 
+        text={text} 
+        onClickHandler={onClickHandler} 
+      />
     </div>
   )
 }

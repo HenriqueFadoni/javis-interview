@@ -1,21 +1,9 @@
 import React, { FunctionComponent, useState } from 'react';
 
 import Functionalities from './Functionalities';
+import { LinkedListType } from '../types';
 
-interface Node {
-  data: string,
-  next: Node,
-  prev: Node
-}
-
-interface SearchNodeProp {
-  list: {
-    head: Node
-    tail: Node
-  }
-}
-
-const SearchNode: FunctionComponent<SearchNodeProp> = ({ list }) => {
+const SearchNode: FunctionComponent<LinkedListType> = ({ list }) => {
   const [searchResponse, setSearchResponse] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
 

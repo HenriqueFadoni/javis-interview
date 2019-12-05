@@ -1,19 +1,9 @@
 import React, { FunctionComponent } from 'react';
 
-interface Node {
-  data: string,
-  next: Node,
-  prev: Node
-}
+import { LinkedListType } from '../types';
+import Button from './Button';
 
-interface ToArrayProps {
-  list: {
-    head: Node,
-    tail: Node
-  }
-}
-
-const ToArray: FunctionComponent<ToArrayProps> = ({ list }) => {
+const ToArray: FunctionComponent<LinkedListType> = ({ list }) => {
   const toArray = () => {
     let listHead = { ...list.head };
     let isDone = false;
@@ -33,9 +23,10 @@ const ToArray: FunctionComponent<ToArrayProps> = ({ list }) => {
   }
 
   return (
-    <button onClick={toArray}>
-      Transform in Array
-    </button>
+    <Button
+      text='Transform in Array'
+      onClickHandler={toArray}
+    />
   )
 }
 

@@ -1,22 +1,11 @@
 import React, { FunctionComponent, useState } from 'react';
 
 import { LinkedList, Node } from '../contructors';
+import { LinkedListType } from '../types';
 import DisplayNode from '../components/DisplayNode';
+import Button from './Button';
 
-interface Nodex {
-  data: string,
-  next: Nodex,
-  prev: Nodex
-}
-
-interface ReverseCopyListProps {
-  list: {
-    head: Nodex,
-    tail: Nodex
-  }
-}
-
-const ReverseCopyList: FunctionComponent<ReverseCopyListProps> = ({ list }) => {
+const ReverseCopyList: FunctionComponent<LinkedListType> = ({ list }) => {
   const [reverseCopy, setReverseCopy] = useState(new LinkedList());
 
   const reverseCopyList = () => {
@@ -54,9 +43,10 @@ const ReverseCopyList: FunctionComponent<ReverseCopyListProps> = ({ list }) => {
   return (
     <div>
       {reverseCopy.head && <DisplayNode list={reverseCopy} />}
-      <button onClick={reverseCopyList}>
-        Reverse Copy
-      </button>
+      <Button 
+        text='Reverse Copy'
+        onClickHandler={reverseCopyList}
+      />
     </div>
   )
 }

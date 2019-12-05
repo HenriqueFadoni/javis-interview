@@ -1,13 +1,10 @@
 import React, { FunctionComponent } from 'react';
 
-interface Node {
-  data: string,
-  next: Node,
-  prev: Node
-}
+import { NodeType } from '../types';
+import Button from './Button';
 
 interface DisplayNodeBtnProps {
-  next: Node,
+  next: NodeType,
   onClickHandler: () => void,
   text: string,
 }
@@ -17,9 +14,10 @@ const DisplayNodeBtn: FunctionComponent<DisplayNodeBtnProps> = ({ text, next, on
 
   if (next) {
     btnDisplay = (
-      <button onClick={onClickHandler}>
-        {next.data}
-      </button>
+      <Button 
+        text={next.data}
+        onClickHandler={onClickHandler}
+      />
     )
   }
 

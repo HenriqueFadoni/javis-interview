@@ -1,20 +1,9 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
+
 import DisplayNodeBtn from './DisplayNodeBtn';
+import { LinkedListType } from '../types';
 
-interface Node {
-  data: string,
-  next: Node,
-  prev: Node
-}
-
-interface DisplayNodeProps {
-  list: {
-    head: Node,
-    tail: Node
-  },
-}
-
-const DisplayNode: FunctionComponent<DisplayNodeProps> = ({ list }) => {
+const DisplayNode: FunctionComponent<LinkedListType> = ({ list }) => {
   const [dataDisplay, setDataDisplay] = useState(list.head);
 
   useEffect(() => {
@@ -55,4 +44,4 @@ const DisplayNode: FunctionComponent<DisplayNodeProps> = ({ list }) => {
   )
 };
 
-export default DisplayNode;
+export default DisplayNode

@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
+import Button from './Button';
 
 interface FunctionalitiesProps {
   functionality: (data: string) => void,
@@ -8,7 +9,7 @@ interface FunctionalitiesProps {
 const Functionalities: FunctionComponent<FunctionalitiesProps> = ({ functionality, text }) => {
   const [data, setData] = useState();
 
-  const onChangeHandler = (event: any) => {
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setData(event.target.value);
   }
 
@@ -26,9 +27,10 @@ const Functionalities: FunctionComponent<FunctionalitiesProps> = ({ functionalit
         onChange={onChangeHandler}
         required
       />
-      <button onClick={onClickHandler} >
-        {text}
-      </button>
+      <Button 
+        text={text}
+        onClickHandler={onClickHandler}
+      />
     </div>
   )
 };
