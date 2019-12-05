@@ -19,11 +19,6 @@ const SearchNode: FunctionComponent<SearchNodeProp> = ({ list }) => {
   const [searchResponse, setSearchResponse] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
 
-  const onClickHandler = (value: string) => {
-    checkNodeExists(value)
-    setIsSearching(true);
-  }
-
   const checkNodeExists = (search: string) => {
     let node = { ...list.head };
     let isDone = false;
@@ -42,6 +37,11 @@ const SearchNode: FunctionComponent<SearchNodeProp> = ({ list }) => {
     }
 
     setSearchResponse(answer);
+  }
+
+  const onClickHandler = (value: string) => {
+    checkNodeExists(value)
+    setIsSearching(true);
   }
 
   const responseDisplay = (

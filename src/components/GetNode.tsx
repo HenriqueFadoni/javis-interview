@@ -9,12 +9,34 @@ interface Node {
 }
 
 interface GetNodeProps {
-  showNode: Node,
-  getNode: (search: string) => void
+  list: {
+    head: Node,
+    tail: Node
+  }
 }
 
-const GetNode: FunctionComponent<GetNodeProps> = ({ getNode, showNode }) => {
+const GetNode: FunctionComponent<GetNodeProps> = ({ list }) => {
+  const [showNode, setShowNode] = useState();
   let displayNode
+
+  const getNode = (search: string) => {
+    let listHead = { ...list.head };
+    let node = null;
+
+    while (!node) {
+      if (listHead.data === search) {
+        node = listHead;
+      } else if (listHead.next) {
+        listHead = listHead.next;
+      } else {
+        node = {
+          data: 'Node doesn\'t exist!'
+        };
+      }
+    }
+
+    setShowNode(node);
+  }
 
   if (showNode) {
     displayNode = (

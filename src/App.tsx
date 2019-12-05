@@ -10,7 +10,6 @@ import InsertBetween from './components/InsertBetween';
 
 const App: FunctionComponent = () => {
   const [list, setList] = useState(new LinkedList());
-  const [showNode, setShowNode] = useState();
   const [reverseCopy, setReverseCopy] = useState(new LinkedList());
 
   const addNodeToEnd = (data: string) => {
@@ -46,25 +45,6 @@ const App: FunctionComponent = () => {
     newList.head = newNode;
 
     setList(newList)
-  }
-
-  const getNode = (search: string) => {
-    let listHead = { ...list.head };
-    let answer = null;
-
-    while (!answer) {
-      if (listHead.data === search) {
-        answer = listHead;
-      } else if (listHead.next) {
-        listHead = listHead.next;
-      } else {
-        answer = {
-          data: 'Node doesn\'t exist!'
-        };
-      }
-    }
-
-    setShowNode(answer);
   }
 
   const insertAfter = (node: string, data: string) => {
@@ -223,10 +203,7 @@ const App: FunctionComponent = () => {
         text='Insert Before'
       />
       <SearchNode list={list} />
-      <GetNode
-        getNode={getNode}
-        showNode={showNode}
-      />
+      <GetNode list={list} />
       <button onClick={reverseList}>Reverse</button>
       {reverseCopy.head && <DisplayNode list={reverseCopy} />}
       <button onClick={reverseCopyList}>Reverse Copy</button>
