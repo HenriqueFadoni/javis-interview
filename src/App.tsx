@@ -7,10 +7,11 @@ import Functionalities from './components/Functionalities';
 import SearchNode from './components/SearchNode';
 import GetNode from './components/GetNode';
 import InsertBetween from './components/InsertBetween';
+import ToArray from './components/ToArray';
+import ReverseCopyList from './components/ReverseCopyList';
 
 const App: FunctionComponent = () => {
   const [list, setList] = useState(new LinkedList());
-  const [reverseCopy, setReverseCopy] = useState(new LinkedList());
 
   const addNodeToEnd = (data: string) => {
     let newList = { ...list };
@@ -136,53 +137,6 @@ const App: FunctionComponent = () => {
     setList({ ...list, ...newList })
   }
 
-  const reverseCopyList = () => {
-    let newList = new LinkedList();
-    let element = { ...list.tail }
-    let stop = false
-
-    while (!stop) {
-      const node = new Node(element.data);
-
-      node.prev = newList.tail;
-
-      if (!newList.head) {
-        newList.head = node
-      } else {
-        newList.tail.next = node;
-      }
-
-      node.next = null;
-      newList.tail = node;
-
-      if (element.prev !== null) {
-        element = { ...element.prev }
-      } else {
-        stop = true
-      }
-    }
-
-    setReverseCopy({ ...reverseCopy, ...newList });
-  }
-
-  const toArray = () => {
-    let listHead = { ...list.head };
-    let isDone = false;
-    const array = [];
-
-    while (!isDone) {
-      array.push(listHead);
-
-      if (listHead.next) {
-        listHead = { ...listHead.next };
-      } else {
-        isDone = true
-      }
-    }
-
-    console.log(array)
-  }
-
   return (
     <div>
       {list.head && <DisplayNode list={list} />}
@@ -205,9 +159,8 @@ const App: FunctionComponent = () => {
       <SearchNode list={list} />
       <GetNode list={list} />
       <button onClick={reverseList}>Reverse</button>
-      {reverseCopy.head && <DisplayNode list={reverseCopy} />}
-      <button onClick={reverseCopyList}>Reverse Copy</button>
-      <button onClick={toArray}>Transform in Array</button>
+      <ReverseCopyList list={list} />
+      <ToArray list={list} />
     </div>
   );
 }
